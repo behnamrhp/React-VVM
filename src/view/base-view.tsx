@@ -1,25 +1,42 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { Component, ReactNode } from "react";
+import { useDI, type InjectionToken } from "@/view/di-ctx";
 import IBaseVM from "@/view/i-base-vm";
 import VvmConnector from "@/view/vvm-connector";
+import { Component, ReactNode } from "react";
 
 type IVMParent = Record<string, any>;
 type IPropParent = Record<string, any> | undefined;
 
-type BaseProps<IVM extends IVMParent, PROPS extends IPropParent = undefined> = {
-  vm: IBaseVM<IVM>;
+type BaseProps<PROPS extends IPropParent = undefined> = {
   restProps?: PROPS;
   /**
    * By default it's true.
    * If you pass true this view will update just by changes of vm not rest props
    *
-   * @default true
    */
   memoizedByVM?: boolean;
   children?: ReactNode;
 };
+
+type BasePropsWithVM<
+  IVM extends IVMParent,
+  PROPS extends IPropParent = undefined,
+> = BaseProps<PROPS> & {
+  /**
+   * Directly instantiated vm
+   */
+  vm: IBaseVM<IVM>;
+};
+
+type BasePropsWithVMKey<PROPS extends IPropParent = undefined> =
+  BaseProps<PROPS> & {
+    /**
+     * TSyringe key for vm to be injected
+     */
+    vmKey: InjectionToken;
+  };
 
 export type BuildProps<
   IVM extends IVMParent,
@@ -30,10 +47,36 @@ export type BuildProps<
   children?: ReactNode;
 };
 
+export type ViewProps<
+  IVM extends IVMParent,
+  PROPS extends IPropParent = undefined,
+> = BasePropsWithVM<IVM, PROPS> | BasePropsWithVMKey<PROPS>;
+
+/**
+ * Base view is base component for all views in mvvm architecture which gets
+ *  vm as props and connect it to the view and memoize the component by default
+ *  to just render just on changes of its vm.
+ */
 export default abstract class BaseView<
   IVM extends IVMParent,
   PROPS extends IPropParent = undefined,
-> extends Component<BaseProps<IVM, PROPS>> {
+> extends Component<ViewProps<IVM, PROPS>> {
+  private vm: IBaseVM<IVM> | undefined;
+
+  constructor(props: ViewProps<IVM, PROPS>) {
+    super(props);
+    this.vm = this.initVm;
+  }
+
+  private get initVm() {
+    if (Object.hasOwn(this.props, "vmKey")) {
+      const { vmKey } = this.props as BasePropsWithVMKey<PROPS>;
+      const di = useDI();
+      return di.resolve(vmKey) as IBaseVM<IVM>;
+    }
+    return (this.props as BasePropsWithVM<IVM, PROPS>).vm;
+  }
+
   protected get componentName() {
     return this.constructor.name;
   }
@@ -41,9 +84,16 @@ export default abstract class BaseView<
   protected abstract Build(props: BuildProps<IVM, PROPS>): ReactNode;
 
   render(): ReactNode {
-    const { vm, restProps, memoizedByVM, children, ...rest } = this.props;
-
+    const { restProps, memoizedByVM, children, ...rest } = this.props;
     VvmConnector.displayName = this.componentName;
+    const vm = memoizedByVM ? this.vm : this.initVm;
+    if (!vm) {
+      const isVmKey = Object.hasOwn(this.props, "vmKey");
+      const message = isVmKey
+        ? "vm is not defined, please check your di configuration with ReactVVMDiProvider or pass correct vmKey"
+        : "pass correct vm to the view";
+      throw new Error(`Vm is not defined, ${message}`);
+    }
 
     return (
       <VvmConnector
