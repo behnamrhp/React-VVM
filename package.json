@@ -3,6 +3,33 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/reactvvm.js",
+  "module": "dist/reactvvm.esm.js",
+  "types": "dist/reactvvm.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/behnamrhp/React-VVM"
+  },
+  "author": {
+    "name": "Behnam RHP",
+    "email": "behnamrahimpour74@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "vvm",
+    "mvvm",
+    "view",
+    "viewmodel",
+    "viewmodel-pattern",
+    "model-view-viewmodel",
+    "react-vvm",
+    "react-vvm-di",
+    "react-vvm-di-container"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

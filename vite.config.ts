@@ -10,4 +10,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    lib: {
+      entry: "./src/index.ts",
+      name: "react-vvm",
+    },
+  },
 });

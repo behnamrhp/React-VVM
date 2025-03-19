@@ -5,7 +5,7 @@ import { constructor } from "@/helpers/types";
 
 export type InjectionToken<T = any> = constructor<T> | string | symbol;
 
-type ReactVVMDiContainer = {
+export type ReactVVMDiContainer = {
   resolve: <T>(token: InjectionToken<T>) => T;
   register: <T>(token: InjectionToken<T>, instance: T) => void;
 };
