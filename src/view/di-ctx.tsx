@@ -1,10 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, ReactNode, use } from "react";
-
-type constructor<T> = {
-  new (...args: any[]): T;
-};
+import { constructor } from "@/helpers/types";
 
 export type InjectionToken<T = any> = constructor<T> | string | symbol;
 
