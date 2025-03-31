@@ -5,3 +5,4 @@ export { type default as IBaseVM } from "@/view/i-base-vm";
 export { type InjectionToken } from "@/view/di-ctx";
 export { type ReactVVMDiContainer } from "@/view/di-ctx";
 export { type NoOverride } from "@/helpers/types";
+export { type BuildProps } from "@/view/base-view";

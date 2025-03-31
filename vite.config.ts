@@ -19,13 +19,12 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: "./src/index.ts",
-      name: "react-vvm",
+      entry: path.resolve(__dirname, "src/index.ts"),
+      name: "reactvvm",
       formats: ["es", "umd"],
-      fileName: (format) => `react-vvm.${format}.js`,
+      fileName: (format) => `reactvvm.${format}.js`,
     },
     rollupOptions: {
-      // Make sure these match what's in your package.json peerDependencies
       external: [
         "react",
         "react-dom",
@@ -41,5 +40,7 @@ export default defineConfig({
         },
       },
     },
+    sourcemap: true,
+    emptyOutDir: true,
   },
 });

@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import dts from "vite-plugin-dts";
 // https://vite.dev/config/
-export default defineConfig(function () { return ({
+export default defineConfig({
     plugins: [
         react(),
         dts({
@@ -18,13 +18,12 @@ export default defineConfig(function () { return ({
     },
     build: {
         lib: {
-            entry: "./src/index.ts",
-            name: "react-vvm",
+            entry: path.resolve(__dirname, "src/index.ts"),
+            name: "reactvvm",
             formats: ["es", "umd"],
-            fileName: function (format) { return "react-vvm.".concat(format, ".js"); },
+            fileName: function (format) { return "reactvvm.".concat(format, ".js"); },
         },
         rollupOptions: {
-            // Make sure these match what's in your package.json peerDependencies
             external: [
                 "react",
                 "react-dom",
@@ -40,5 +39,7 @@ export default defineConfig(function () { return ({
                 },
             },
         },
+        sourcemap: true,
+        emptyOutDir: true,
     },
-}); });
+});
