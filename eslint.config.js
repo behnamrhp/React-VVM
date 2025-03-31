@@ -5,6 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import prettier from 'eslint-plugin-prettier'
 import tseslint from 'typescript-eslint'
 import airbnb from 'eslint-config-airbnb'
+import ts from "@typescript-eslint/parser"
 
 export default tseslint.config(
   { ignores: ['dist'] },
@@ -20,6 +21,7 @@ export default tseslint.config(
       'react-refresh': reactRefresh,
       'prettier': prettier,
       "airbnb": airbnb,
+      "ts": ts
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -28,6 +30,13 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       "react-hooks/rules-of-hooks": "off",
+      "@typescript-eslint/no-unused-expressions": [
+        "error",
+        {
+          "allowTernary": true,
+          "allowTaggedTemplates": true
+        }
+      ],
       "prettier/prettier": [
         "warn",
         {
