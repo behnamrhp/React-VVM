@@ -1,14 +1,21 @@
 {
   "name": "reactvvm",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.3",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "dist/reactvvm.js",
-  "module": "dist/reactvvm.esm.js",
-  "types": "dist/reactvvm.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/reactvvm.es.js",
+      "require": "./dist/reactvvm.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./*": {
+      "import": "./dist/*.js",
+      "types": "./dist/*.d.ts"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/behnamrhp/React-VVM"
@@ -41,9 +48,13 @@
     "react-dom": ">=18.0.0"
   },
   "devDependencies": {
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@typescript-eslint/eslint-plugin": "^8.29.0",
+    "@typescript-eslint/parser": "^8.29.0",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "eslint": "^9.21.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -55,9 +66,8 @@
     "prettier": "^3.3.3",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.0"
-  },
-  "dependencies": {
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3",
     "@types/node": "^22.13.10"
   }
 }
