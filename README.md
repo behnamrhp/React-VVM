@@ -1,54 +1,72 @@
-# React + TypeScript + Vite
+# React vvm
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Table of contents
+- [React vvm](#react-vvm)
+  - [Table of contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Motivation](#motivation)
+  - [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [IVM](#ivm)
+    - [View](#view)
+    - [VM - ViewModel](#vm---viewmodel)
+    - [Usage Example](#usage-example)
+  - [Memoization by vm](#memoization-by-vm)
+  - [Usage with di](#usage-with-di)
+  - [All Apis](#all-apis)
+    - [BaseView](#baseview)
+    - [BaseVM](#basevm)
+## Overview
+This library provides a simple, efficient, and reliable solution for MVVM (Model-View-ViewModel) pattern in React applications. It establishes a shared language for robust architectural coding by combining the MVVM architecture with the Bridge pattern, creating a solid foundation for UI development that maximizes maintainability, testability, and reusability.
 
-Currently, two official plugins are available:
+By explicitly defining ViewModels as the UI logic layer for each view, the library effectively prevents unnecessary re-renders that would otherwise propagate from parent components.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Motivation
+In an era where most frontend communities—particularly the React ecosystem—focus on discussing new tools, libraries, and immediate development solutions, architectural patterns and software engineering fundamentals often receive less attention. However, in professional software engineering, maintainability, testability, and reusability remain the foundational pillars that every developer should prioritize.
 
-## Expanding the ESLint configuration
+Managing UI components and their associated logic—particularly regarding reusability, maintainability, and testability—remains one of the most persistent challenges for frontend engineers. Finding optimal solutions in this domain continues to be a primary focus of the field.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Among the various architectural patterns available for frontend development, MVVM (Model-View-ViewModel) stands out as one of the most practical and reliable approaches. While this pattern has been successfully implemented across numerous frameworks and libraries, I noticed a significant gap in the React ecosystem - the absence of a well-designed MVVM solution that properly adapts to React's unique environment and capabilities.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+These considerations led me to create this library - to establish a foundational implementation and shared architectural language for React developers who value proper application structure.
+
+For deeper insights into the library's design philosophy, MVVM architecture, and relevant design patterns, I recommend these articles:
+
+[Cracking the Code: How the MVVM with Bridge Pattern Saves a Messy Frontend UI (Part 1)](https://dev.to/behnamrhp/cracking-the-code-how-the-mvvm-with-bridge-pattern-saves-a-messy-frontend-ui-part-1-3h4)
+
+[Cracking the Code: How the MVVM with Bridge Pattern Saves a Messy Frontend UI (Part 2)](https://dev.to/behnamrhp/cracking-the-code-how-the-mvvm-with-bridge-pattern-saves-a-messy-frontend-ui-part-2-22oc)
+
+## Getting Started
+
+### Installation
+npm
+```
+npm install reactvvm
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+yarn
 ```
+yarn add reactvvm
+```
+
+pnpm
+```
+pnpm install reactvvm
+```
+### IVM 
+
+### View
+
+### VM - ViewModel
+
+### Usage Example
+
+## Memoization by vm 
+
+## Usage with di
+
+## All Apis
+
+### BaseView
+
+### BaseVM
