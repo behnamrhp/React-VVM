@@ -24,12 +24,7 @@ export default defineConfig({
             fileName: function (format) { return "reactvvm.".concat(format, ".js"); },
         },
         rollupOptions: {
-            external: [
-                "react",
-                "react-dom",
-                "react/jsx-runtime",
-                "react/jsx-dev-runtime",
-            ],
+            external: ["react", "react-dom", "react/jsx-runtime"],
             output: {
                 globals: {
                     react: "React",
