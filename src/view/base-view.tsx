@@ -34,12 +34,7 @@ type BasePropsWithVM<
 type BasePropsWithVMKey<
   IVM extends IVMParent,
   PROPS extends IPropParent = undefined,
-<<<<<<< HEAD
 > = BaseProps<PROPS> & {
-=======
-> =
-  BaseProps<PROPS> & {
->>>>>>> b5bfe25b3d1bacd3e56a009aff4ef25345affe3b
   /**
    * TSyringe key for vm to be injected
    */
@@ -51,11 +46,7 @@ type BasePropsWithVMKey<
    * @returns vm - modified VM or the same
    */
   modifiedVm?: (vm: BaseVM<IVM, any>) => BaseVM<IVM, any>;
-<<<<<<< HEAD
 };
-=======
-  };
->>>>>>> b5bfe25b3d1bacd3e56a009aff4ef25345affe3b
 
 export type BuildProps<
   IVM extends IVMParent,
