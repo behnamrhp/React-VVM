@@ -1,10 +1,13 @@
 {
   "name": "reactvvm",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "type": "module",
   "files": [
     "dist"
   ],
+  "main": "./dist/reactvvm.umd.js",
+  "module": "./dist/reactvvm.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/reactvvm.es.js",

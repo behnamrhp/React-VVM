@@ -25,12 +25,16 @@ export default defineConfig({
       fileName: (format) => `reactvvm.${format}.js`,
     },
     rollupOptions: {
+<<<<<<< HEAD
+      external: ["react", "react-dom", "react/jsx-runtime"],
+=======
       external: [
         "react",
         "react-dom",
         "react/jsx-runtime",
         "react/jsx-dev-runtime",
       ],
+>>>>>>> b5bfe25b3d1bacd3e56a009aff4ef25345affe3b
       output: {
         globals: {
           react: "React",
