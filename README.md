@@ -14,9 +14,6 @@
   - [Memoization by vm](#memoization-by-vm)
   - [Dynamic VMs](#dynamic-vms)
   - [Usage with di](#usage-with-di)
-  - [All Apis](#all-apis)
-    - [BaseView](#baseview)
-    - [BaseVM](#basevm)
 ## Overview
 This library provides a simple, efficient, and reliable solution for MVVM (Model-View-ViewModel) pattern in React applications. It establishes a shared language for robust architectural coding by combining the MVVM architecture with the Bridge pattern, creating a solid foundation for UI development that maximizes maintainability, testability, and reusability.
 
@@ -188,16 +185,124 @@ This architecture enables thousands of different VMs to be reused with a single 
 - Connected the click event to the Model's logout method
 - Established a clean connection between View and business logic through the ViewModel
 ### Connection
+The final step is to establish a connection between the ViewModel and the View. This is done by passing the ViewModel as a prop to the View component, which will be handled by a parent component.
 
-> Important note
+In this case, the parent component determines which UI logic corresponds to which UI element, without concerning itself with the implementation details.
+
+```tsx
+export default function Sidebar() {
+  const logoutButtonVm = useRef(new LogoutButtonVM());
+
+  return (
+    <aside>
+      ...
+        <div>
+          <Button
+            memoizedByVM={false}
+            restProps={{
+              className: "w-full h-14",
+            }}
+            vm={logoutButtonVm.current}
+          />
+        </div>
+      ...
+    </aside>
+  );
+}
+```
+In this example, we created a ref to the ViewModel and passed it as a prop to the Button component.
+
+We also passed other required props to the Button, which are provided by the parent component as a single restProps object.
+
+Additionally, in this example, we disabled memoization based on the vm prop in the Button component. This means that every re-render of the parent component will trigger a re-render of the Button component.
+
+> Note: By default, the Button component is memoized based on the vm changes to be trigerred just by its ui logic.
+
+> Important: Use this architecture when you have a reusable component (like this Button) that can have multiple implementations. If a view has only one implementation, avoid this approach—instead, a custom hook as a ViewModel (VM) is sufficient.
+
 ## Memoization by vm 
+As mentioned before, one of the key benefits of this architecture is the ability to memoize View components based on the VM changes without any additional complexity.
+
+This approach ensures that a View component only re-renders when its VM changes, preventing unnecessary re-renders caused by parent component updates.
+
+To control this behavior, you can use the memoizedByVM prop (a boolean flag):
+
+- true (default): The View is memoized based on VM changes.
+
+- false: The View ignores VM-based memoization and may re-render due to parent updates.
 
 ## Dynamic VMs
+Some of the VMs might be require dynamic data from outside to be able to work with specially when it comes to render a list of UI which each one of them needs to work with specific data.
+
+Look at this example:
+```tsx
+export default class UserInfoCardVM extends BaseVM<
+  ICardVM,
+  { userId: string }
+> {
+  ...
+  useVM(): ICardVM {
+    const user = usePromiseValue(() => this.model.getUserById(this.deps.userId))
+    return {
+      props: {
+        title: user.fullname,
+        subTitle: user.email,
+        icon: LoginIcon,
+      },
+    };
+  }
+  ...
+}
+```
+In this example we have a VM which implement a card view and needs to get the user id from the outside to render detail information of the user.
+
+You can see the BaseVM second generic type which is DEP (dependencies) is responsible for getting the dependencies from the outside.
+And from inside of VM we can access to this dependencies by using `this.deps`.
+
+How to use it?
+
+```tsx
+function ParentComponent() {
+  ...
+  const userInfoCards = userIds.map((userId) => {
+    const userInfoCardVm = new UserInfoCardVM().produce({ userId }); 
+    return <Card key={userId} vm={userInfoCardVm} />
+  })
+  ...
+
+  return (
+    ...
+    {userInfoCards}
+    ...
+  )
+}
+```
+In this example, we have a parent component that maintains a list of user IDs and renders a collection of user information cards. We also have a ViewModel (VM) responsible for providing the necessary data and logic to each card component for rendering user information.
+
+We pass the required dependencies to the VM using the produce method.
 
 ## Usage with di
+In some frameworks like Next.js, we cannot directly pass ViewModels (VMs) from server components to client components because VMs are not serializable. To work around this limitation, we can use Dependency Injection (DI) to pass a unique key representing the VM instead. The client component can then use this key to retrieve the VM instance through DI.
 
-## All Apis
+Implementation Example:
+1. Use `ReactVVMDiProvider` to register your DI container in the React context.
 
-### BaseView
+2. Register your VM with the DI container using a unique key.
 
-### BaseVM
+3. Pass only this key (instead of the full VM) to your view component with `vmKey` prop.
+```tsx 
+...
+// In other file
+di.register("EXAMPLE_VM_KEY", ExampleVM)
+...
+// Some server component
+export default async function Page() {
+  const diRef = useRef(di);
+  ...
+  return (
+    <ReactVVMDiProvider diContainer={diRef.current}>
+      <Button vmKey="EXAMPLE_VM_KEY">
+    <ReactVVMDiProvider />
+  )
+}
+```
