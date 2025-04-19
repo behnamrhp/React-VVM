@@ -1,6 +1,6 @@
 {
   "name": "reactvvm",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "type": "module",
   "files": [
     "dist"
