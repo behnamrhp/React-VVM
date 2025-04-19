@@ -302,7 +302,7 @@ export default async function Page() {
   return (
     <ReactVVMDiProvider diContainer={diRef.current}>
       <Button vmKey="EXAMPLE_VM_KEY">
-    <ReactVVMDiProvider />
+    </ ReactVVMDiProvider>
   )
 }
 ```
