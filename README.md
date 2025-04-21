@@ -1,4 +1,10 @@
 # React vvm
+<center>
+  <a rel="noopener" target="_blank"><img width="150" height="133" src="./logo.png" alt="React Radio Player logo"></a>
+
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![npm version](https://img.shields.io/npm/v/reactvvm.svg?style=flathttps://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/reactvvm)
+
+</center>
 
 ## Table of contents
 - [React vvm](#react-vvm)
