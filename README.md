@@ -300,10 +300,9 @@ di.register("EXAMPLE_VM_KEY", ExampleVM)
 ...
 // Some server component
 export default async function Page() {
-  const diRef = useRef(di);
   ...
   return (
-    <ReactVVMDiProvider diContainer={diRef.current}>
+    <ReactVVMDiProvider diContainer={di}>
       <Button vmKey="EXAMPLE_VM_KEY">
     </ ReactVVMDiProvider>
   )
