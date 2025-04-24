@@ -36,7 +36,7 @@ type BasePropsWithVMKey<
   PROPS extends IPropParent = undefined,
 > = BaseProps<PROPS> & {
   /**
-   * TSyringe key for vm to be injected
+   * Di key for vm to be injected
    */
   vmKey: InjectionToken;
   /**
