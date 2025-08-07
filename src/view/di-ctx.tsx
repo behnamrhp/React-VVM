@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createContext, ReactNode, use } from "react";
+import { createContext, ReactNode, useContext } from "react";
 import { constructor } from "@/helpers/types";
 
 export type InjectionToken<T = any> = constructor<T> | string | symbol;
@@ -13,7 +13,7 @@ export type ReactVVMDiContainer = {
 const DiContext = createContext<null | ReactVVMDiContainer>(null);
 
 const useDI = () => {
-  const di = use(DiContext);
+  const di = useContext(DiContext);
 
   if (!di) {
     throw new Error(
