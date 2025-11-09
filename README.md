@@ -37,6 +37,8 @@ For deeper insights into the library's design philosophy, MVVM architecture, and
 
 [Cracking the Code: How the MVVM with Bridge Pattern Saves a Messy Frontend UI (Part 2)](https://dev.to/behnamrhp/cracking-the-code-how-the-mvvm-with-bridge-pattern-saves-a-messy-frontend-ui-part-2-22oc)
 
+> Note: This library act as ViewModel and View in the MVVM architecture, highly suggested to be used beside of [Reactive Query](https://github.com/Reactive-Query-Lab/reactive-query) which acts as the Model in the MVVM. With these two approaches you can have solid MVVM architecture in your react application in any scale of projects.
+
 ## Getting Started
 
 ### Installation
